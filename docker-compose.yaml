@@ -7,7 +7,7 @@ services:
       - '5032:5432'
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGES_USER=${DB_USERNAME}
+      - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - ./postgres:/var/lib/postgresql

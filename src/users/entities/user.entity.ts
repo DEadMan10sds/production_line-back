@@ -19,7 +19,9 @@ export class User {
   @Column('text')
   email: string;
 
-  @Column('text')
+  @Column('text', {
+    select: false,
+  })
   password: string;
 
   @Column('text', {
@@ -28,7 +30,9 @@ export class User {
   })
   roles: string[];
 
-  @Column('bool')
+  @Column('bool', {
+    default: true,
+  })
   isActive: boolean;
 
   @CreateDateColumn({

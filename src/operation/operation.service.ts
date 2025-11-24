@@ -22,8 +22,10 @@ export class OperationService {
     return savedOperation;
   }
 
-  findAll() {
-    return `This action returns all operation`;
+  async findAll() {
+    const allOperations = await this.operationRepository.find();
+
+    return allOperations;
   }
 
   findOne(id: number) {

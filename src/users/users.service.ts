@@ -9,12 +9,14 @@ import { hashSync } from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { CommonService } from 'src/common/common.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly commonService: CommonService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -56,8 +58,15 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const preloadedUser = await this.userRepository.preload({
+      id,
+      ...updateUserDto,
+    });
+
+    if (!preloadedUser) throw new BadRequestException("User doesn't exists");
+
+    await this.commonService.handleTransaction(preloadedUser);
   }
 
   remove(id: number) {

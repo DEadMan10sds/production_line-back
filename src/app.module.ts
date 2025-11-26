@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { TagModule } from './tag/tag.module';
 import { TemplatesModule } from './templates/templates.module';
 import { OperationModule } from './operation/operation.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { OperationModule } from './operation/operation.module';
     TagModule,
     TemplatesModule,
     OperationModule,
+    CommonModule,
   ],
 })
 export class AppModule {}
